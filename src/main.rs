@@ -188,7 +188,8 @@ async fn command_handler(
         // }
         NewsWizardCommands::GetNews => {
             info!("Getnews cmd used by: {}: Trying to get some news...", username);
-            authentication(
+
+            let auth_success = authentication(
                 bot.clone(),
                 msg.clone(),
                 state,
@@ -196,13 +197,17 @@ async fn command_handler(
                 api_id,
                 api_hash.clone(),
                 &language_code,
-            )
-            .await?;
-            info!("Getnews cmd: Authentication passed...");
-            handle_getnews_cmd(bot.clone(), msg.clone(), &language_code).await?;
-            info!("Getnews cmd: Podcast created and sent");
-            schedule_daily_getnews_task(bot.clone(), msg, language_code.clone()).await;
-            info!("Getnews cmd: Daily getnews task scheduled");
+            ).await?;
+
+            if auth_success {
+                info!("Getnews cmd: Authentication passed...");
+                handle_getnews_cmd(bot.clone(), msg.clone(), &language_code).await?;
+                info!("Getnews cmd: Podcast created and sent");
+                schedule_daily_getnews_task(bot.clone(), msg, language_code.clone()).await;
+                info!("Getnews cmd: Daily getnews task scheduled");
+            } else {
+                info!("Getnews cmd: User is not authenticated, sent auth request message.");
+            }
         }
     }
     Ok(())

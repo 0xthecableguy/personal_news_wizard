@@ -162,7 +162,7 @@ pub(crate) async fn authentication(
     api_id: i32,
     api_hash: String,
     language_code: &str,
-) -> anyhow::Result<()> {
+) -> Result<bool, anyhow::Error> {
     info!("Authentication fn: Authentication started...");
     let localization = load_localization(language_code);
 
@@ -194,6 +194,7 @@ pub(crate) async fn authentication(
                     .unwrap_or("Default message")
                     .to_string();
                 bot.send_message(msg.chat.id, message).await?;
+                return Ok(true);
             } else {
                 state.awaiting_phone_number = true;
                 let message = localization["authentication_fn"]["awaiting_phone"]
@@ -201,6 +202,7 @@ pub(crate) async fn authentication(
                     .unwrap_or("Default message")
                     .to_string();
                 bot.send_message(msg.chat.id, message).await?;
+                return Ok(false);
             }
         }
     } else {
@@ -225,6 +227,8 @@ pub(crate) async fn authentication(
             .unwrap_or("Default message")
             .to_string();
         bot.send_message(msg.chat.id, message).await?;
+        return Ok(false);
     }
-    Ok(())
+
+    Ok(false)
 }
