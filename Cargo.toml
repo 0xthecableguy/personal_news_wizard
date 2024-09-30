@@ -1,0 +1,25 @@
+[package]
+name = "news_wizard"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+
+grammers = { git = "https://github.com/Lonami/grammers.git", branch = "master" }
+grammers-client = { git = "https://github.com/Lonami/grammers.git", package = "grammers-client", branch = "master" }
+grammers-session = { git = "https://github.com/Lonami/grammers.git", package = "grammers-session", branch = "master" }
+anyhow = "1.0.87"
+log = "0.4.22"
+async-openai = "0.24.0"
+dotenv = "0.15"
+chrono = "0.4.38"
+teloxide = { version = "0.13.0", features = ["macros"] }
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+tracing-attributes = "0.1.27"
+tracing-appender = "0.2.3"
+lazy_static = "1.5.0"
+serde_json = "1.0.128"

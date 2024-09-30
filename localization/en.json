@@ -1,0 +1,21 @@
+{
+  "signout_cmd": {
+    "session_ended": "Session ended, to regain access to the bot's functionality, please execute /auth command",
+    "not_authorized": "You are not authorized, unable to end the session"
+  },
+  "create_and_send_podcast_fn": {
+    "start_message": "I've gathered the most interesting news for you!\nGrab a coffee while I record a podcast! ☕\uFE0F",
+    "end_message": "All set!\nEnjoy listening!\nI'll send you a new podcast tomorrow morning so you'll be up to date! \uD83D\uDE01"
+  },
+  "authentication_fn": {
+    "authorized": "You are authorized, all functionality is available you now!",
+    "awaiting_phone": "Please provide your Telegram account phone number for authentication:"
+  },
+  "session_file_creation_fn": {
+    "awaiting_passcode": "❗❗❗\n\nTelegram has sent you a one-time authorization code, now CAREFULLY read the following:\n\nProvide me with this code, but in NO WAY the same form as Telegram sent, otherwise authorization will not be successful.\n\nIf you received the code '12345', send me the following: '1234 5' (with a space(s) between any numbers, yes, otherwise Telegram will not let me work in peace)\n\n❗❗❗",
+    "authorized": "You are authorized, all functionality is available to you!",
+    "2fa_required": "You have 2FA authorization enabled.\nHint: {}.\n\nPlease enter your 2FA password:",
+    "hint_not_available": "No hint available",
+    "2fa_success": "2FA authorization has been successfully completed!\nNow you have access to all the functionality of the bot, quickly press /getnews and see the magic)"
+  }
+}

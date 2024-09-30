@@ -1,0 +1,14 @@
+services:
+  news_wizard_bot:
+    image: news_wizard
+    build:
+      context: .
+    container_name: news_wizard_bot
+    env_file:
+      - .env
+    volumes:
+      - ./common_res:/usr/src/news_wizard/common_res
+      - ./localization:/usr/src/news_wizard/localization
+      - ./tmp:/usr/src/news_wizard/tmp
+      - ./users_sessions:/usr/src/news_wizard/users_sessions
+    restart: unless-stopped

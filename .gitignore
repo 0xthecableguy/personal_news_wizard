@@ -1,0 +1,7 @@
+/target
+/tmp
+/logs
+/users_sessions
+.idea
+.env
+.DS_Store

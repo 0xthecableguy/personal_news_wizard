@@ -1,0 +1,4 @@
+Hi there!
+I can gather updates from the channels you're subscribed to and then record an audio podcast with a news overview just for you!
+
+Want to check it out? Then you'll need to authorize - just run the /auth command and follow my instructions!
