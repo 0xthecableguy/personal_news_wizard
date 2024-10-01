@@ -181,16 +181,28 @@ pub(crate) async fn get_latest_messages(
         .write(true)
         .open(file_name)?;
 
+    let system_role = fs::read_to_string("common_res/system_role_4.txt")
+        .map_err(|e| format!("Failed to read 'system role': {}", e))
+        .unwrap();
+    
     while let Some(message) = messages.next().await? {
         if message.date() < period {
             break;
         }
         if !message.text().is_empty() {
             let text = message.text().to_string();
+            info!("Checking message via LLM: {}", text);
+            // Check an update for a useful info via LLM
+            let llm_response = llm_processing(system_role.clone(), text.clone()).await?;
 
+            if llm_response.trim() == "skip" {
+                info!("Message passed after processing through LLM.");
+                continue;
+            }
+            
             writeln!(
                 file,
-                "Источник: {}\nНачало сообщения:\n{}\nКонец сообщения.",
+                "Источник: {}\nНачало обновления:\n{}\nКонец обновления.",
                 dialog.chat.name(),
                 text
             )?;
@@ -198,6 +210,8 @@ pub(crate) async fn get_latest_messages(
             writeln!(file, "\n***\n")?;
         }
     }
+    
+    // writeln!(file, "\nКонец обновлений\n")?;
 
     Ok(())
 }
